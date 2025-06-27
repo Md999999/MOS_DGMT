@@ -1,0 +1,60 @@
+fastapi
+uvicorn
+python-jose
+pydantic
+venvmosopedada@Mosopes-MacBook-Pro Digital-Matty-SOS-Backendd-main 2 % source venv/bin/activate
+
+(venv) venvmosopedada@Mosopes-MacBook-Pro Digital-Matty-SOS-Backendd-main 2 % pip install passlib[bcrypt]
+
+zsh: no matches found: passlib[bcrypt]
+(venv) venvmosopedada@Mosopes-MacBook-Pro Digital-Matty-SOS-Backendd-main 2 % pip install 'passlib[bcrypt]'
+
+
+
+to install 
+1. Check what's using port 8000
+In your terminal, run:
+
+bash
+Copy
+Edit
+lsof -i :8000
+You’ll see something like this:
+
+pgsql
+Copy
+Edit
+COMMAND   PID     USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+Python    65432   mosopedada   3u  IPv4 0x1234567890      0t0  TCP 127.0.0.1:8000 (LISTEN)
+Look at the PID number — in this example it's 65432.
+
+2. Kill the process
+Run:
+
+bash
+Copy
+Edit
+kill -9 65432
+(Replace 65432 with the actual PID you see)
+
+This force-stops the process that's blocking port 8000.
+
+3. Start your FastAPI app again
+Now run your FastAPI app again:
+
+bash
+Copy
+Edit
+uvicorn main:app --reload
+If your app is inside a folder like app/main.py, use:
+
+bash
+Copy
+Edit
+uvicorn app.main:app --reload
+You should now see:
+
+pgsql
+Copy
+Edit
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
