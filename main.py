@@ -1,14 +1,14 @@
 from fastapi import FastAPI
-from app import auth, routes
+from app.database import Base, engine
+from app.auth import router as auth_router
+from app.routes import router as main_router
 
-app = FastAPI(
-    title="SOS Alert System",
-    description="Backend for emergency contacts and alerts",
-    version="1.0.0"
-)
+app = FastAPI()
 
-app.include_router(auth.router)
-app.include_router(routes.router)
+Base.metadata.create_all(bind=engine)
+
+app.include_router(auth_router)
+app.include_router(main_router)
 
 
 #--------------------------- instructions to run this project ---------------------------------------
